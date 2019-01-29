@@ -13,14 +13,20 @@ public class GameView extends JFrame {
 
     private void initUI() {
         gb = new GameBoard(400, 400);
-
         initComponents();
+        //runMOde();
         setPreferredSize(new Dimension(800, 600));
         setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("GizmoBall");
         pack();
 
+    }
+    private void runMOde() {
+        RunMode rm = new RunMode();
+        rm.initUI();
+        rm.initComponents();
+        add(rm);
     }
 
     private void initComponents() {
@@ -37,7 +43,7 @@ public class GameView extends JFrame {
         //set panels' attributes
         FlowLayout flowLayout = new FlowLayout();
         BorderLayout borderLayout = new BorderLayout();
-        borderLayout.setVgap(60);
+        //borderLayout.setVgap(40);
         flowLayout.setVgap(40);
 
 
@@ -56,9 +62,9 @@ public class GameView extends JFrame {
         //rightPanel.setBackground(Color.MAGENTA);
 
         leftMenuSubPanel.setLayout(new BorderLayout());
-        leftMenuSubPanel.setPreferredSize(new Dimension(300, 200));
-        leftMenuSubPanel.setMinimumSize(new Dimension(300, 200));
-        leftMenuSubPanel.setMaximumSize(new Dimension(300, 200));
+        leftMenuSubPanel.setPreferredSize(new Dimension(300, 300));
+        leftMenuSubPanel.setMinimumSize(new Dimension(300, 300));
+        leftMenuSubPanel.setMaximumSize(new Dimension(300, 300));
 
 
 
@@ -117,7 +123,7 @@ public class GameView extends JFrame {
         JMenuItem squareBumperOption = new JMenuItem("Square");
         JMenuItem circularBumperOption = new JMenuItem("Triangular");
         JMenuItem triangularBumperOption = new JMenuItem("Circular");
-
+        buildMenuBar.setPreferredSize(new Dimension(100,40));
 
         ImageIcon playIcon = new ImageIcon("/home/dimiftb/IdeaProjects/GizmoBall/GizmoBall/src/Icons/play.png");
         ImageIcon connectIcon = new ImageIcon("/home/dimiftb/IdeaProjects/GizmoBall/GizmoBall/src/Icons/connect.png");
@@ -138,17 +144,29 @@ public class GameView extends JFrame {
         JButton deleteButton = new JButton("Delete",deleteIcon);
         JButton keyBindButton = new JButton("Bind Key",bindIcon);
         JButton keyUnbindButton = new JButton("Unbind Key",unbindIcon);
+        moveButton.setPreferredSize(new Dimension(150,40));
+        addAbsorberButton.setPreferredSize(new Dimension(150,40));
+        connectButton.setPreferredSize(new Dimension(150,40));
+        disconnectButton.setPreferredSize(new Dimension(150,40));
+        rotateButton.setPreferredSize(new Dimension(150,40));
+        deleteButton.setPreferredSize(new Dimension(150,40));
+        keyBindButton.setPreferredSize(new Dimension(150,40));
+        keyUnbindButton.setPreferredSize(new Dimension(150,40));
 
 
+        JLabel ballsLabel = new JLabel("Balls");
         JLabel gravitySLabel = new JLabel("Gravity");
         JLabel frictionSLabel = new JLabel("Friction");
         JLabel velocitySLabel = new JLabel("Velocity");
+        JSlider ballsSlider = new JSlider(0,50,10);
         JSlider gravitySlider = new JSlider(0,50,10);
         JSlider frictionSlider = new JSlider(0,50,10);
         JSlider velocitySlider = new JSlider(0,50,10);
+        JTextField ballsSTextBox = new JTextField();
         JTextField gravitySTextBox = new JTextField();
         JTextField frictionSTextBox = new JTextField();
         JTextField velocitySTextBox = new JTextField();
+        ballsSTextBox.setPreferredSize(new Dimension(35,20));
         gravitySTextBox.setPreferredSize(new Dimension(35,20));
         velocitySTextBox.setPreferredSize(new Dimension(35,20));
         frictionSTextBox.setPreferredSize(new Dimension(35,20));
@@ -189,12 +207,14 @@ public class GameView extends JFrame {
         leftMenuSubLeftPanel.add(buildMenuBar);
 
 
-        leftMenuSubRightPanel.add(addAbsorberButton);
         leftMenuSubRightPanel.add(disconnectButton);
+        leftMenuSubRightPanel.add(addAbsorberButton);
         leftMenuSubRightPanel.add(moveButton);
         leftMenuSubRightPanel.add(keyUnbindButton);
 
-
+        leftMenuSubSliderPanel.add(ballsLabel);
+        leftMenuSubSliderPanel.add(ballsSTextBox);
+        leftMenuSubSliderPanel.add(ballsSlider);
         leftMenuSubSliderPanel.add(gravitySLabel);
         leftMenuSubSliderPanel.add(gravitySTextBox);
         leftMenuSubSliderPanel.add(gravitySlider);

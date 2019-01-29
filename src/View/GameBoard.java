@@ -40,22 +40,23 @@ public class GameBoard extends JPanel implements Observer {
         int rowHeight = board_height/rows;
         int rowWidth = board_width/columns;
         g.setColor(Color.CYAN);
-        for(int i = 0; i < rows; i++ ) {
+       for(int i = 0; i < rows; i++ ) {
             //rows
             g.drawLine(0,i*rowHeight, board_width, i*rowHeight);
             //columns
             g.drawLine(i *rowWidth,0,i*rowWidth,board_height);
         }
             g.setColor(Color.GREEN);
-            //square
             g.fillRect(120,180,20,20);
             //flipper
+            g.setColor(Color.RED);
             g.fillOval(200,180,20,20);
             g.fillRect(210,180,20,20);
             g.fillRect(230,180,20,20);
             g.fillOval(240,180,20,20);
             int x [] = {160,180,180};
             int y [] = {160,160,180};
+            g.setColor(Color.MAGENTA);
             g.fillPolygon(x,y,3);
 
 
