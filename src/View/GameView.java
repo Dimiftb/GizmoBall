@@ -4,80 +4,91 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameView extends JFrame {
-
+    private GameBoard gb;
+    private Shape shape;
 
     public GameView() {
         initUI();
     }
 
     private void initUI() {
+        gb = new GameBoard(400, 400);
+
         initComponents();
         setPreferredSize(new Dimension(800, 600));
         setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("GizmoBall");
         pack();
-        setVisible(true);
 
     }
 
     private void initComponents() {
         //create panels
-        JPanel leftPanel = new JPanel();
+        JPanel controlPanel = new JPanel();
         JPanel rightPanel = new JPanel();
-        JPanel gridPanel = new JPanel();
         JPanel leftMenuSubPanel = new JPanel();
         JPanel leftMenuSubSliderPanel = new JPanel();
         JPanel leftMenuSubLeftPanel = new JPanel();
         JPanel leftMenuSubRightPanel = new JPanel();
+        JPanel messagePanel = new JPanel();
 
 
         //set panels' attributes
         FlowLayout flowLayout = new FlowLayout();
         BorderLayout borderLayout = new BorderLayout();
-        borderLayout.setVgap(80);
-        flowLayout.setVgap(20);
+        borderLayout.setVgap(60);
+        flowLayout.setVgap(40);
 
 
-        leftPanel.setLayout(borderLayout);
-        leftPanel.setPreferredSize(new Dimension(200, 600));
-        leftPanel.setMinimumSize(new Dimension(200, 600));
-        leftPanel.setMaximumSize(new Dimension(200, 600));
+        controlPanel.setLayout(borderLayout);
+        controlPanel.setPreferredSize(new Dimension(300, 600));
+        controlPanel.setMinimumSize(new Dimension(300, 600));
+        controlPanel.setMaximumSize(new Dimension(300, 600));
+        controlPanel.setBackground(Color.PINK);
 
-        rightPanel.setLayout(new FlowLayout());
-        rightPanel.setPreferredSize(new Dimension(700, 700));
-        rightPanel.setMinimumSize(new Dimension(700, 700));
-        rightPanel.setMaximumSize(new Dimension(700, 700));
 
-        gridPanel.setPreferredSize(new Dimension(500, 500));
-        gridPanel.setMinimumSize(new Dimension(500, 500));
-        gridPanel.setMaximumSize(new Dimension(500, 500));
-        gridPanel.setBackground(Color.BLACK);
 
+        rightPanel.setLayout(flowLayout);
+        rightPanel.setPreferredSize(new Dimension(400, 600));
+        rightPanel.setMinimumSize(new Dimension(400, 600));
+        rightPanel.setMaximumSize(new Dimension(400, 600));
+        //rightPanel.setBackground(Color.MAGENTA);
 
         leftMenuSubPanel.setLayout(new BorderLayout());
-        leftMenuSubPanel.setPreferredSize(new Dimension(200, 150));
-        leftMenuSubPanel.setMinimumSize(new Dimension(200, 150));
-        leftMenuSubPanel.setMaximumSize(new Dimension(200, 150));
+        leftMenuSubPanel.setPreferredSize(new Dimension(300, 200));
+        leftMenuSubPanel.setMinimumSize(new Dimension(300, 200));
+        leftMenuSubPanel.setMaximumSize(new Dimension(300, 200));
+
+
 
         leftMenuSubLeftPanel.setLayout(new FlowLayout());
-        leftMenuSubLeftPanel.setPreferredSize(new Dimension(100, 150));
-        leftMenuSubLeftPanel.setMinimumSize(new Dimension(100,  150));
-        leftMenuSubLeftPanel.setMaximumSize(new Dimension(100, 150));
+        leftMenuSubLeftPanel.setPreferredSize(new Dimension(150, 200));
+        leftMenuSubLeftPanel.setMinimumSize(new Dimension(150,  200));
+        leftMenuSubLeftPanel.setMaximumSize(new Dimension(150, 200));
+        leftMenuSubLeftPanel.setBackground(Color.PINK);
 
         leftMenuSubRightPanel.setLayout(new FlowLayout());
-        leftMenuSubRightPanel.setPreferredSize(new Dimension(100, 150));
-        leftMenuSubRightPanel.setMinimumSize(new Dimension(100, 150));
-        leftMenuSubRightPanel.setMaximumSize(new Dimension(100, 150));
+        leftMenuSubRightPanel.setPreferredSize(new Dimension(150, 200));
+        leftMenuSubRightPanel.setMinimumSize(new Dimension(150, 200));
+        leftMenuSubRightPanel.setMaximumSize(new Dimension(150, 200));
+        leftMenuSubRightPanel.setBackground(Color.PINK);
 
         leftMenuSubSliderPanel.setLayout(new FlowLayout());
         leftMenuSubSliderPanel.setPreferredSize(new Dimension(200, 300));
         leftMenuSubSliderPanel.setMinimumSize(new Dimension(200, 300));
         leftMenuSubSliderPanel.setMaximumSize(new Dimension(200, 300));
+        leftMenuSubSliderPanel.setBackground(Color.PINK);
 
+        messagePanel.setLayout(new FlowLayout());
+        messagePanel.setPreferredSize(new Dimension(400, 30));
+        messagePanel.setMinimumSize(new Dimension(400, 30));
+        messagePanel.setMaximumSize(new Dimension(400, 30));
+        messagePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         //main menu
         JMenuBar mainMenuBar = new JMenuBar();
+        mainMenuBar.setBackground(Color.orange);
         JMenu mainMenu = new JMenu("File");
         JMenuItem saveOption = new JMenuItem("Save");
         JMenuItem loadOption = new JMenuItem("Load");
@@ -95,7 +106,8 @@ public class GameView extends JFrame {
 
         JLabel jLabel = new JLabel("Build Menu");
         JMenuBar buildMenuBar = new JMenuBar();
-        JMenu buildMenu = new JMenu("Choose..");
+        buildMenuBar.setSize(100,100);
+        JMenu buildMenu = new JMenu("Choose ▼");
         buildMenu.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         JMenuItem triangleOption = new JMenuItem("Triangle");
         JMenuItem circleOption = new JMenuItem("Circle");
@@ -106,15 +118,27 @@ public class GameView extends JFrame {
         JMenuItem circularBumperOption = new JMenuItem("Triangular");
         JMenuItem triangularBumperOption = new JMenuItem("Circular");
 
-        JButton addAbsorberButton = new JButton("Add Absorber");
-        JButton playButton = new JButton("Play");
-        JButton moveButton = new JButton("Move");
-        JButton connectButton = new JButton("Connect");
-        JButton disconnectButton = new JButton("Disconnect");
-        JButton rotateButton = new JButton("Rotate");
-        JButton deleteButton = new JButton("Delete");
-        JButton keyBindButton = new JButton("Bind Key");
-        JButton keyUnbindButton = new JButton("Unbind Key");
+
+        ImageIcon playIcon = new ImageIcon("/home/dimiftb/IdeaProjects/GizmoBall/GizmoBall/src/Icons/play.png");
+        ImageIcon connectIcon = new ImageIcon("/home/dimiftb/IdeaProjects/GizmoBall/GizmoBall/src/Icons/connect.png");
+        ImageIcon disconnectIcon = new ImageIcon("/home/dimiftb/IdeaProjects/GizmoBall/GizmoBall/src/Icons/disconnect.png");
+        ImageIcon rotateIcon = new ImageIcon("/home/dimiftb/IdeaProjects/GizmoBall/GizmoBall/src/Icons/rotate.png");
+        ImageIcon deleteIcon = new ImageIcon("/home/dimiftb/IdeaProjects/GizmoBall/GizmoBall/src/Icons/delete.png");
+        ImageIcon moveIcon = new ImageIcon("/home/dimiftb/IdeaProjects/GizmoBall/GizmoBall/src/Icons/move.png");
+        ImageIcon bindIcon = new ImageIcon("/home/dimiftb/IdeaProjects/GizmoBall/GizmoBall/src/Icons/bind.png");
+        ImageIcon unbindIcon = new ImageIcon("/home/dimiftb/IdeaProjects/GizmoBall/GizmoBall/src/Icons/remove.png");
+        ImageIcon absorberIcon = new ImageIcon("/home/dimiftb/IdeaProjects/GizmoBall/GizmoBall/src/Icons/play.png");
+        JButton addAbsorberButton = new JButton("Absorber",playIcon);
+        JButton playButton = new JButton("Play",playIcon);
+        playButton.setBackground(Color.ORANGE);
+        JButton moveButton = new JButton("Move",moveIcon);
+        JButton connectButton = new JButton("Connect",connectIcon);
+        JButton disconnectButton = new JButton("Disconnect",disconnectIcon);
+        JButton rotateButton = new JButton("Rotate",rotateIcon);
+        JButton deleteButton = new JButton("Delete",deleteIcon);
+        JButton keyBindButton = new JButton("Bind Key",bindIcon);
+        JButton keyUnbindButton = new JButton("Unbind Key",unbindIcon);
+
 
         JLabel gravitySLabel = new JLabel("Gravity");
         JLabel frictionSLabel = new JLabel("Friction");
@@ -128,6 +152,10 @@ public class GameView extends JFrame {
         gravitySTextBox.setPreferredSize(new Dimension(35,20));
         velocitySTextBox.setPreferredSize(new Dimension(35,20));
         frictionSTextBox.setPreferredSize(new Dimension(35,20));
+
+
+        JLabel messageLabel = new JLabel("Message successfully generated!!");
+
 
 
         buildMenuBar.add(Box.createHorizontalGlue());
@@ -145,19 +173,20 @@ public class GameView extends JFrame {
 
         //add components to frame & panels
         Container contents = getContentPane();
-        contents.add(leftPanel, BorderLayout.LINE_START);
+        contents.add(controlPanel, BorderLayout.LINE_START);
         contents.add(rightPanel, BorderLayout.CENTER);
         contents.add(playButton, BorderLayout.PAGE_END);
 
 
         //leftMenuSubPanel.add(jLabel);
+        messagePanel.add(messageLabel);
 
 
-        leftMenuSubLeftPanel.add(buildMenuBar);
         leftMenuSubLeftPanel.add(connectButton);
         leftMenuSubLeftPanel.add(rotateButton);
         leftMenuSubLeftPanel.add(deleteButton);
         leftMenuSubLeftPanel.add(keyBindButton);
+        leftMenuSubLeftPanel.add(buildMenuBar);
 
 
         leftMenuSubRightPanel.add(addAbsorberButton);
@@ -178,9 +207,11 @@ public class GameView extends JFrame {
 
         leftMenuSubPanel.add(leftMenuSubLeftPanel,BorderLayout.LINE_START);
         leftMenuSubPanel.add(leftMenuSubRightPanel,BorderLayout.LINE_END);
-        leftPanel.add(leftMenuSubPanel, BorderLayout.PAGE_START);
-        leftPanel.add(leftMenuSubSliderPanel, BorderLayout.LINE_START);
-        rightPanel.add(gridPanel);
+        controlPanel.add(leftMenuSubPanel, BorderLayout.PAGE_START);
+        controlPanel.add(leftMenuSubSliderPanel, BorderLayout.LINE_START);
+       // gb.paintComponent(null);
+        rightPanel.add(gb);
+        rightPanel.add(messagePanel);
 
     }
 
@@ -189,6 +220,7 @@ public class GameView extends JFrame {
             @Override
             public void run() {
                 GameView gameView = new GameView();
+                gameView.setVisible(true);
 
             }
         });
